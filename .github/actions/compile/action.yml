@@ -1,0 +1,50 @@
+name: Run kas for a specific build configuration
+inputs:
+  machine:
+    required: true
+  distro_yaml:
+    required: true
+  kas:
+    required: true
+  tag:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Build for specified tag
+      shell: bash
+      run: |
+        TAG="$INPUTS_TAG"
+        
+        echo "Processing tag: $TAG"
+        
+        if ! git rev-parse "$TAG" >/dev/null 2>&1; then
+          echo "Error: Tag $TAG not found"
+          exit 1
+        fi
+        
+        BUILD_DIR="build-$TAG"
+        mkdir -p "$BUILD_DIR"
+        cd "$BUILD_DIR"
+        
+        git -C .. checkout "$TAG"
+        
+        if [ ! -f ../lock.yml ]; then
+          echo "Warning: lock.yml not found for tag $TAG, exiting..."
+          exit 1
+        fi
+        
+        echo "Building for tag: $TAG"
+        
+        $KAS checkout ../lock.yml
+        cp ../lock.yml meta-qcom/ci/lock.yml
+        
+        $KAS build meta-qcom/ci/$INPUTS_MACHINE.yml:meta-qcom/ci/$INPUTS_DISTRO_YAML:meta-qcom/ci/lock.yml
+        
+        echo "Completed build for tag: $TAG"
+      env:
+        INPUTS_MACHINE: ${{ inputs.machine }}
+        INPUTS_DISTRO_YAML: ${{ inputs.distro_yaml }}
+        KAS: ${{ inputs.kas }}
+        INPUTS_TAG: ${{ inputs.tag }}
