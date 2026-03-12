@@ -15,11 +15,11 @@ repos:
     url: https://github.com/openembedded/meta-openembedded
   meta-qcom:
     branch: master
-    commit: 678d9b8ef56c0f48af8527af86c557bacca0593b
+    commit: cc27172f1427e3d79ee180b8155ae1c9b12e831f
     url: https://github.com/qualcomm-linux/meta-qcom
   meta-qcom-distro:
     branch: main
-    commit: 7b8c20153b11bd4ede24b735a8a5527edf1d4d6e
+    commit: c1cfd6731643f5110f497874ca04963b6a733b1c
     url: https://github.com/qualcomm-linux/meta-qcom-distro
   meta-security:
     branch: master
@@ -31,11 +31,11 @@ repos:
     url: https://git.yoctoproject.org/meta-selinux
   meta-updater:
     branch: master
-    commit: 671d459917f140db7edf56295aa4dce8a743ea73
+    commit: fdc475db4833f5edfb4417d40ecea00fc2af7cbf
     url: https://github.com/uptane/meta-updater
   meta-virtualization:
     branch: master
-    commit: ebe61f2aee8afe4caaa0e2327b8a02c0ded4e330
+    commit: 947678262ae85f214a306ff41d7352485c8d5a03
     url: https://git.yoctoproject.org/git/meta-virtualization
   oe-core:
     branch: master
